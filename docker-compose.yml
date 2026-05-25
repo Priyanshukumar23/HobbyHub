@@ -1,34 +1,29 @@
-version: '3.8'
+version: '3'
 
 services:
+  mongo:
+    image: mongo
+    container_name: hobbyhub_mongo
+    restart: always
+    ports:
+      - "27017:27017"
 
   server:
-    build:
-      context: ./server
-      dockerfile: Dockerfile
-
+    build: ./server
     container_name: hobbyhub_server
-
+    restart: always
     ports:
       - "5000:5000"
-
     env_file:
       - ./server/.env
-
-    restart: unless-stopped
-
+    depends_on:
+      - mongo
 
   client:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
-
+    build: ./client
     container_name: hobbyhub_client
-
+    restart: always
     ports:
       - "80:80"
-
     depends_on:
       - server
-
-    restart: unless-stopped

@@ -26,7 +26,7 @@ const server = http.createServer(app);
 // Allowing CORS for the frontend application.
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
+    origin: ["http://52.62.199.56"],
     methods: ["GET", "POST"],
     credentials: true,
     allowedHeaders: ["my-custom-header"],
@@ -39,14 +39,14 @@ const PORT = process.env.PORT || 5000;
 // CORS allows requests from the frontend domain.
 // express.json() parses incoming JSON requests.
 app.use(cors({
-  origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
+  origin: ["http://52.62.199.56"],
   credentials: true
 }));
 app.use(express.json());
 
 // --- Database Connection ---
 // Connects to the MongoDB instance using Mongoose.
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/community-platform', {
+mongoose.connect(process.env.MONGO_URI || 'mongodb://mongo:27017/hobbyhub', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
